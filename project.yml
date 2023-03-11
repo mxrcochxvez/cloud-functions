@@ -1,0 +1,5 @@
+packages:
+  - name: helloFuncs
+    actions:
+      - name: hello
+      - name: someMath
