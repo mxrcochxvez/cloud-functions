@@ -1,9 +1,1 @@
 language: node_js
-before_install:
-  - sudo apt-get update
-install:
-  - npm install
-before-deploy:
-  - npm run test
-deploy:
-  - npm run deploy
