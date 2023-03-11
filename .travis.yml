@@ -3,7 +3,7 @@ node_js:
   - "14"
 install:
   - npm install
-before-deploy:
+script:
   - npm run test
 deploy:
   - npm run deploy
