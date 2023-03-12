@@ -21,5 +21,5 @@ workflows:
       - doctl/install_and_initialize_cli:
           digitalocean-access-token: dgo_access_token
       - node/run:
-          requires: doctl/install_and_initialize_cli
+          requires: [doctl/install_and_initialize_cli]
           npm-run: deploy
