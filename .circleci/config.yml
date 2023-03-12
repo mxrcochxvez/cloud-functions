@@ -8,6 +8,12 @@ commands:
           name: Install dependencies
           # Clean install is faster and avoids changing package-lock.
           command: "npm clean-install --no-audit"
+      - run:
+          name: Install digital ocean cli
+          command: "snap install doctl"
+      - run:
+          name: Install serverless
+          command: "doctl serverless install"
 
 jobs:
   test-functions:
