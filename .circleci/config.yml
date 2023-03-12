@@ -12,7 +12,7 @@ commands:
 jobs:
   test-functions:
     docker:
-      - image: cimg/node:14.19
+      - image: cimg/node:18.13
         environment:
           SLS_ID: ${SLS_ID}
     steps:
@@ -25,7 +25,7 @@ jobs:
           path: test-results
   deploy:
     docker:
-      - image: cimg/python:3.9-node
+      - image: cimg/node:18.13
         environment:
           SLS_ID: ${SLS_ID}
     steps:
