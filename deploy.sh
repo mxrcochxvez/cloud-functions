@@ -7,7 +7,7 @@ if [ -f .env ]; then
   export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
 fi
 
-echo -e "${YELLOW} Checking environment variables... ${CLEAR}"
+echo -e "Checking environment variables..."
 [[ -z "$SLS_ID" ]] && { echo "Serverless ID is missing from the env file or the env file does not exist at all" ; exit 1; }
 
 echo; echo "Connecting to namespace using Serverless ID"
