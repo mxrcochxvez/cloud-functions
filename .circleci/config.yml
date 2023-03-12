@@ -12,15 +12,26 @@ jobs:
       - run:
           name: Run tests
           command: npm test
+  deploy:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - doctl/install
+      - doctl/initialize:
+          digitalocean-access-token: dgo_access_token
+      - run:
+          name: Deploy to DigitalOcean
+          command: npm run deploy
 workflows:
   test_functions:
     jobs:
       - test
   deploy:
     jobs:
-      - doctl/install_and_initialize_cli:
-          digitalocean-access-token: dgo_access_token
-          executor: node/default
-      - node/run:
-          requires: [doctl/install_and_initialize_cli]
-          npm-run: deploy
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
