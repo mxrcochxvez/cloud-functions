@@ -13,14 +13,12 @@ jobs:
           name: Run tests
           command: npm test
 workflows:
-  install_and_configure_cli:
-    jobs:
-      - doctl/install_and_initialize_cli:
-          digitalocean-access-token: dgo_access_token
   test_functions:
     jobs:
       - test
   deploy:
     jobs:
+      - doctl/install_and_initialize_cli:
+          digitalocean-access-token: dgo_access_token
       - node/run:
           npm-run: deploy
