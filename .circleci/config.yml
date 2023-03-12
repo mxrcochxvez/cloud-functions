@@ -21,6 +21,9 @@ jobs:
       - doctl/initialize:
           digitalocean-access-token: dgo_access_token
       - run:
+          name: Install Serverless
+          command: doctl serverless install
+      - run:
           name: Deploy to DigitalOcean
           command: npm run deploy
 workflows:
