@@ -1,53 +1,15 @@
 version: 2.1
 
-commands:
-  install-packages:
-    description: Installs packages required by the project.
-    steps:
-      - run:
-          name: Install dependencies
-          # Clean install is faster and avoids changing package-lock.
-          command: "npm clean-install --no-audit"
-      - run:
-          name: Install digital ocean cli
-          command: "snap install doctl"
-      - run:
-          name: Install serverless
-          command: "doctl serverless install"
+orbs:
+  doctl: digitalocean/cli@1.0.0
+  node: circleci/node@18.13
 
 jobs:
-  test-functions:
-    docker:
-      - image: cimg/node:18.13
-        environment:
-          SLS_ID: ${SLS_ID}
+  test:
+    executor: node/default
     steps:
       - checkout
-      - install-packages
+      - node/install-packages
       - run:
-          name: Run unit tests
-          command: "npm run test"
-      - store_test_results:
-          path: test-results
-  deploy:
-    docker:
-      - image: cimg/node:18.13
-        environment:
-          SLS_ID: ${SLS_ID}
-    steps:
-      - checkout
-      - install-packages
-      - run:
-          name: Deploy
-          command: "npm run deploy"
-workflows:
-  version: 2
-  test-and-deploy:
-    jobs:
-      - test-functions
-      - deploy:
-          requires:
-            - test-functions
-          filters:
-            branches:
-              only: main
+          name: Run tests
+          command: npm test
