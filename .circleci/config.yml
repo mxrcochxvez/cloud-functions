@@ -16,7 +16,7 @@ workflows:
   install_and_configure_cli:
     jobs:
       - doctl/install_and_initialize_cli:
-          digitalocean-access-token: ${dgo_access_token}
+          digitalocean-access-token: dgo_access_token
   test_functions:
     jobs:
       - test
