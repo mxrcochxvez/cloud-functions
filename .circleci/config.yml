@@ -34,3 +34,14 @@ jobs:
       - run:
           name: Deploy
           command: "npm run deploy"
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - test-functions
+      - deploy:
+          requires:
+            - test-functions
+          filters:
+            branches:
+              only: main
