@@ -1,0 +1,36 @@
+version: 2.1
+
+commands:
+  install-packages:
+    description: Installs packages required by the project.
+    steps:
+      - run:
+          name: Install dependencies
+          # Clean install is faster and avoids changing package-lock.
+          command: "npm clean-install --no-audit"
+
+jobs:
+  test-functions:
+    docker:
+      - image: cimg/node:14.19
+        environment:
+          SLS_ID: ${SLS_ID}
+    steps:
+      - checkout
+      - install-packages
+      - run:
+          name: Run unit tests
+          command: "npm run test"
+      - store_test_results:
+          path: test-results
+  deploy:
+    docker:
+      - image: cimg/python:3.9-node
+        environment:
+          SLS_ID: ${SLS_ID}
+    steps:
+      - checkout
+      - install-packages
+      - run:
+          name: Deploy
+          command: "npm run deploy"
