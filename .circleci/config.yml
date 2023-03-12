@@ -35,4 +35,4 @@ workflows:
       - deploy:
           filters:
             branches:
-              only: main
+              only: staging
