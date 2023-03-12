@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # loads environment variables from env file
 if [ -f .env ]; then
   export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
